@@ -1,7 +1,7 @@
 import { Component } from "react";
-import './Counter.css';
+import './Grid.css';
 
-export default class Counter extends Component {
+export default class Grid extends Component {
     constructor(props) {
         super(props);
         this.state = {

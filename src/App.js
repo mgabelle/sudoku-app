@@ -1,8 +1,8 @@
-import Counter from './Counter';
+import Grid from './Grid';
 
 function App() {
   return (
-      <Counter/>
+      <Grid/>
   );
 }
 
