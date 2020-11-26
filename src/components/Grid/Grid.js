@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Cell } from './Cell';
+import Cell from '../Cell/Cell';
 import './Grid.css';
 
 export default class Grid extends Component {
