@@ -1,0 +1,9 @@
+.Cell {
+    font-weight: bold;
+}
+
+.Cell input {
+    width: 50%;
+    text-align: center;
+    border-radius: 0px;
+}

@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Cell } from './Cell';
 import './Grid.css';
 
 export default class Grid extends Component {
@@ -26,6 +27,3 @@ export default class Grid extends Component {
     }
 }
 
-const Cell = (props) => {
-    return <td>{props.number}</td>;
-}
