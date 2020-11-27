@@ -13,6 +13,7 @@ export function CellDynamic(props) {
         <td className="Cell">
             <input 
                 value={ props.number === 0 ? "" : props.number }
+                onKeyUp={(e) => props.onKeyUpHandler(e.key) }
             />
         </td>
     );

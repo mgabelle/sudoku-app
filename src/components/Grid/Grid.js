@@ -12,8 +12,12 @@ export default class Grid extends Component {
     }
 
     renderRow = (row, i) => {
-        const cells = row.map((number, j) => number === 0 ? <CellDynamic key={[i,j]} number={number}/> : <CellFix key={[i,j]} number={number}/>);
-        return <tr>{cells}</tr>;
+        const cells = row.map((number, j) => {
+            return number === 0 ? 
+                <CellDynamic key={[i,j]} number={number} onKeyUpHandler={(value) => this.updateCell(i,j,value)}/> : 
+                <CellFix key={[i,j]} number={number}/>                
+        });
+        return <tr key={i}>{cells}</tr>;
     }
 
     updateCell = (i, j, value) => {

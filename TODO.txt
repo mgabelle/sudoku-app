@@ -1,4 +1,3 @@
-- add css for sudoku table 
-- add constant cell and fixed cells
-- add input cell with css
-- cell should update the grid on keyUp event  
+- issue when updating :
+    -> should check the key input
+    -> after update the CellDynamic becomes a CellFix 
