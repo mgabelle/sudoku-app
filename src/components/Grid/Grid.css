@@ -12,3 +12,11 @@ table {
     border-collapse: collapse;
     text-align: center;
   }
+
+  td:nth-child(3n) {
+    border-right:solid ;
+  }
+
+  tr:nth-child(3n) td {
+    border-bottom:solid ;
+  } 

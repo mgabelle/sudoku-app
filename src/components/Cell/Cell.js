@@ -1,10 +1,17 @@
 import './Cell.css';
 
-export default function Cell(props) {
-    //const [cellValue, setCellValue] = useState(0)
+export function CellFix(props) {
     return (
         <td className="Cell">
-            { props.number > 0 &&  props.number }
+            { props.number }
+        </td>
+    );
+}
+
+export function CellDynamic(props) {
+    return (
+        <td className="Cell">
+            <input value={props.number}/>
         </td>
     );
 }
