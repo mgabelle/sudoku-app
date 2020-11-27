@@ -11,9 +11,9 @@ export function CellFix(props) {
 export function CellDynamic(props) {
     return (
         <td className="Cell">
-            <input value={
-                props.number === 0 ? "" : props.number
-                }/>
+            <input 
+                value={ props.number === 0 ? "" : props.number }
+            />
         </td>
     );
 }

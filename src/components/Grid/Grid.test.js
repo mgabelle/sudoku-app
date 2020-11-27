@@ -25,3 +25,8 @@ test('should update the Grid status', () => {
     expect(grid.state.grid[i][j]).toEqual(stubValue);
 })
 
+test('should get the grid', () => {
+    const grid = new Grid();
+    expect(grid.getGrid()).toEqual(grid.state.grid);
+})
+
