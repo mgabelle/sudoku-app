@@ -12,7 +12,7 @@ export default class Grid extends Component {
     }
 
     renderRow = row => {
-    const cells = row.map(number => <CellFix number={number}/>);
+    const cells = row.map(number => number === 0 ? <CellDynamic number={number}/> : <CellFix number={number}/>);
         return <tr>{cells}</tr>;
     }
 
