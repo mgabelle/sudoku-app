@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { CellFix, CellDynamic } from '../Cell/Cell';
+import Cell from '../Cell/Cell';
 import { generateRandomGrid } from '../../utils/sudoku'
 import './Grid.css';
 
@@ -14,8 +14,8 @@ export default class Grid extends Component {
     renderRow = (row, i) => {
         const cells = row.map((number, j) => {
             return number === 0 ? 
-                <CellDynamic key={[i,j]} number={number} onKeyUpHandler={(value) => this.updateCell(i,j,value)}/> : 
-                <CellFix key={[i,j]} number={number}/>                
+                <Cell type={'dynamic'} key={[i,j]} number={number} handleChange={(value) => this.updateCell(i,j,value)}/> : 
+                <Cell type={'fixed'} key={[i,j]} number={number}/>                
         });
         return <tr key={i}>{cells}</tr>;
     }

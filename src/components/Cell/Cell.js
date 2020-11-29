@@ -1,20 +1,31 @@
+import { Component } from 'react';
 import './Cell.css';
 
-export function CellFix(props) {
-    return (
-        <td className="Cell">
-            { props.number }
-        </td>
-    );
-}
+export default class Cell extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-export function CellDynamic(props) {
-    return (
-        <td className="Cell">
-            <input 
-                value={ props.number === 0 ? "" : props.number }
-                onKeyUp={(e) => props.onKeyUpHandler(e.key) }
-            />
-        </td>
-    );
+    handleChange = (event) => {
+        console.log(event.target.value);
+    }
+
+    render() {
+        if(this.props.type === 'fixed') {
+            return (
+                <td className="Cell">
+                    { this.props.number }
+                </td>
+            );
+        }
+        else {
+            return (
+                <td className="Cell">
+                    <input 
+                        onChange={this.handleChange}
+                    />
+                </td>
+            );
+        }
+    }
 }
