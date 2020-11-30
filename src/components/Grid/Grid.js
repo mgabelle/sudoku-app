@@ -6,11 +6,18 @@ import './Grid.css';
 export default class Grid extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            grid: generateRandomGrid()
-        }
+        this.grid = generateRandomGrid();
+    }
+    
+    getGrid = _ => this.grid;
+    
+    getCell = (i,j) => this.getGrid()[i][j];
+    
+    updateCell = (i, j, value) => {
+        this.getGrid()[i][j].updateValue(value);
     }
 
+    
     renderRow = (row, i) => {
         const cells = row.map((cellObject, j) => {
 
@@ -25,18 +32,6 @@ export default class Grid extends Component {
         });
         return <tr key={i}>{cells}</tr>;
     }
-
-    updateCell = (i, j, value) => {
-        const grid = this.getGrid();
-        grid[i][j].updateValue(value);
-        this.setState({
-            grid: grid
-        })
-    }
-
-    getGrid = _ => this.state.grid;
-
-    getCell = (i,j) => this.getGrid()[i][j];
 
     render() {
         let table = this.getGrid().map((row, j) => this.renderRow(row, j));

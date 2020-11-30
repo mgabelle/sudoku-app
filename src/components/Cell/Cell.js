@@ -6,27 +6,38 @@ export default class Cell extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            type: this.props.cellObject.getType(),
             value: this.props.cellObject.getValue()
         }
     }
 
+    getValue = _ => this.state.value;
+
+    getType = _ => this.state.type;
+
     handleChange = (event) => {
         const value = event.target.value;
 
-        if(this.checkInput(value)) {
-            this.props.handleChange(parseInt(value));
-            this.setState({value : value});
-        } else {
-            this.props.handleChange(0);
+        if(this.isValidNumber(value)) {
+            const valueToInt = parseInt(value);
+            this.updateCellStateAndGrid(valueToInt);
+        } else if (value === "") {
+            this.updateCellStateAndGrid(0);
         }
     }
 
+    updateCellStateAndGrid = (value) => { 
+        this.setState({value: value});
+        this.props.handleChange(value);
+    }
+
+    //Select all the cell content on click
     handleClick = (e) => {
         e.target.select();
     } 
 
-    checkInput(value) {
-        //check valid number
+    //Check if value is a valid number
+    isValidNumber(value) {
         if(isNaN(parseInt(value))) return false;
 
         if(value === 0 || value > 9) return false;
@@ -35,7 +46,8 @@ export default class Cell extends Component {
     }
 
     render() {
-        const {value, type} = this.props.cellObject;
+        const value = this.getValue();
+        const type = this.getType();
         
         if(type === FIXED) {
             return (
@@ -46,8 +58,8 @@ export default class Cell extends Component {
         } else {
             return (
                 <td className="Cell">
-                    <input 
-                        value={this.state.value === 0 ? "" : this.state.value }
+                    <input
+                        value={ value === 0 ? "" : value } 
                         onChange={this.handleChange}
                         onClick={this.handleClick}
                     />
