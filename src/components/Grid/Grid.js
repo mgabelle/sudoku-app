@@ -36,6 +36,8 @@ export default class Grid extends Component {
 
     getGrid = _ => this.state.grid;
 
+    getCell = (i,j) => this.getGrid()[i][j];
+
     render() {
         let table = this.getGrid().map((row, j) => this.renderRow(row, j));
         return (
