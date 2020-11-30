@@ -1,6 +1,6 @@
 import { Component } from "react";
-import { CellFix, CellDynamic } from '../Cell/Cell';
-import { generateRandomGrid } from '../../utils/sudoku'
+import Cell from '../Cell/Cell';
+import { generateRandomGrid, FIXED, DYNAMIC } from '../../utils/sudoku'
 import './Grid.css';
 
 export default class Grid extends Component {
@@ -12,17 +12,23 @@ export default class Grid extends Component {
     }
 
     renderRow = (row, i) => {
-        const cells = row.map((number, j) => {
-            return number === 0 ? 
-                <CellDynamic key={[i,j]} number={number} onKeyUpHandler={(value) => this.updateCell(i,j,value)}/> : 
-                <CellFix key={[i,j]} number={number}/>                
+        const cells = row.map((cellObject, j) => {
+
+            switch(cellObject.getType()) {
+                case FIXED:
+                    return <Cell cellObject={cellObject} key={[i,j]}/>;
+                case DYNAMIC:
+                    return <Cell cellObject={cellObject} key={[i,j]} handleChange={(value) => this.updateCell(i,j,value)}/>;
+                default:
+                    console.error('this is not a valid type for a Cell Object');
+            }
         });
         return <tr key={i}>{cells}</tr>;
     }
 
     updateCell = (i, j, value) => {
         const grid = this.getGrid();
-        grid[i][j] = value;
+        grid[i][j].updateValue(value);
         this.setState({
             grid: grid
         })

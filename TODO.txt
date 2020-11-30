@@ -1,3 +1,0 @@
-- issue when updating :
-    -> should check the key input
-    -> after update the CellDynamic becomes a CellFix 
