@@ -3,6 +3,15 @@
  * This module has for goal to generate sudoku grid
  */
 
+export { 
+    generateRandomGrid,
+    createEmptyGrid,
+    isFull,
+    FIXED,
+    DYNAMIC,
+    SUDOKU_SIZE
+};
+
 const SUDOKU_SIZE = 9;
 const FIXED = 'fixed';
 const DYNAMIC = 'dynamic';
@@ -18,7 +27,7 @@ class CellObject {
         this.type = value === 0 ? DYNAMIC : FIXED;
     }
 
-    updateValue = (newValue) => this.value = newValue;
+    updateValue = newValue => this.value = newValue;
 
     getValue = _ => this.value;
     
@@ -38,9 +47,13 @@ const generateRandomGrid = () => {
     )
 };
 
+const generateSudokuGrid = () => createEmptyGrid();
 
-export { 
-    generateRandomGrid,
-    FIXED,
-    DYNAMIC
-};
+const isFull = grid => {
+    for(let row of grid) {
+        for(let n of row) {
+            if(n === 0) return false;
+        }
+    }
+    return true;
+}

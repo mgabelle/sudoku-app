@@ -19,7 +19,7 @@ test('should update the Grid status', () => {
     const grid = new Grid();
 
     const [i, j] = [3, 4];
-    const stubValue = (grid.state.grid[i][j] + 1) % 9;
+    const stubValue = (grid.getGrid()[i][j] + 1) % 9;
 
     expect(grid.getCell(i,j).getValue()).not.toEqual(stubValue);
     
@@ -30,7 +30,7 @@ test('should update the Grid status', () => {
 
 test('should get the grid', () => {
     const grid = new Grid();
-    expect(grid.getGrid()).toEqual(grid.state.grid);
+    expect(grid.getGrid()).toEqual(grid.grid);
 })
 
 test('should render Grid', () => {
