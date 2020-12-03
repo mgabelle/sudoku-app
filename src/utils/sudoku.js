@@ -47,8 +47,6 @@ const generateRandomGrid = () => {
     )
 };
 
-const generateSudokuGrid = () => createEmptyGrid();
-
 const isFull = grid => {
     for(let row of grid) {
         for(let n of row) {
@@ -57,3 +55,5 @@ const isFull = grid => {
     }
     return true;
 }
+
+const generateSudokuGrid = () => createEmptyGrid();

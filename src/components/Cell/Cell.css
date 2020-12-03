@@ -10,7 +10,8 @@
     font-size: larger;
     font-weight: bold;
     font-family: inherit;
-    border-width: 0px;
-    width: 95%;
-    height: 95%;
+    width: 85%;
+    height: 85%;
+    border: none;
+    outline: none;
 }
