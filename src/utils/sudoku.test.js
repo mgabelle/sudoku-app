@@ -58,7 +58,16 @@ test('should check correctly', () => {
         expect(solver.isValueInColumn(column, value)).toBeFalsy();
     }
 
+    //correct column
     expect(solver.isValueInColumn(j, value)).toBeTruthy();
 
     //incorrect block
+    const incorrectBlock = [[1,1], [2,2],[3,2]];
+    for(let block of incorrectBlock) {
+        expect(solver.isValueInBlock(...block)).toBeFalsy();
+    }
+
+    //correct block
+    expect(solver.isValueInBlock(i,j,value)).toBeTruthy();
+
 })

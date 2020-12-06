@@ -90,14 +90,15 @@ export class SudokuSolver {
 
     //Blocks
     getBlock = (i,j) => {
-        const line = Math.floor(i/3);
-        const column = Math.floor(j/3);
+        const line = 3*Math.floor(i/3);
+        const column = 3*Math.floor(j/3);
         const block = [];
         for(let m = line; m < line + 3; m++){
             for(let n = column; n < column + 3; n++){
                 block.push(this.grid[m][n]);
             }
         }
+        return block;
     }
 
     isValueInBlock = (i, j, value) => isInArray(this.getBlock(i,j), value);
