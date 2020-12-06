@@ -35,7 +35,12 @@ class CellObject {
 }
 
 //Return 9x9 matrix of zeros
-const createEmptyGrid = () => new Array(SUDOKU_SIZE).fill(new Array(SUDOKU_SIZE).fill(0));
+const createEmptyGrid = () => {
+    const grid = [];
+    for(let i = 0; i < SUDOKU_SIZE; i++)
+        grid.push(new Array(SUDOKU_SIZE).fill(0));
+    return grid;
+}
 
 //Generate a 9x9 grid of random number
 const generateRandomGrid = () => {
@@ -59,7 +64,7 @@ const isFull = grid => {
 const generateSudokuGrid = () => createEmptyGrid();
 
 //SUDKU SOLVER - BACKTRACKING ALGORITHM
-class SudokuSolver {
+export class SudokuSolver {
     /*
         A grid is a 9x9 matrix built with Array.
         In this class we use : 
@@ -76,14 +81,14 @@ class SudokuSolver {
     //Lines
     getLine = i => this.getGrid()[i];
 
-    isValueInLine = (i, value) => this.isInArray(this.getLine(i), value);
+    isValueInLine = (i, value) => isInArray(this.getLine(i), value);
 
     //Columns
     getColumn = j => this.getGrid().map(row => row[j]);
 
-    isValueInColumn = (j, value) => this.isInArray(this.getColumn(j), value);
+    isValueInColumn = (j, value) => isInArray(this.getColumn(j), value);
 
-    //Block 
+    //Blocks
     getBlock = (i,j) => {
         const line = Math.floor(i/3);
         const column = Math.floor(j/3);
@@ -95,13 +100,8 @@ class SudokuSolver {
         }
     }
 
-    isInBlock = (i, j, value) => this.isInArray(this.getBlock(i,j), value);
-
-    //Checker
-    isInArray = (array, value) => {
-        if(value in array) {
-            return true;
-        }
-        return false;
-    }
+    isValueInBlock = (i, j, value) => isInArray(this.getBlock(i,j), value);
 }
+
+//Checker
+export const isInArray = (array, value) => array.includes(value);
