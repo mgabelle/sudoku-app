@@ -13,6 +13,8 @@ export {
 };
 
 const SUDOKU_SIZE = 9;
+const SUDOKU_VALUES = [1, 2, 3, 4, 5, 6, 7 ,8 ,9];
+
 const FIXED = 'fixed';
 const DYNAMIC = 'dynamic';
 
@@ -61,22 +63,62 @@ const isFull = grid => {
     return true;
 }
 
-const generateSudokuGrid = () => createEmptyGrid();
-
 //SUDKU SOLVER - BACKTRACKING ALGORITHM
 export class SudokuSolver {
     /*
-        A grid is a 9x9 matrix built with Array.
+        'grid' is a 9x9 matrix built with Array.
         In this class we use : 
             - i for the line position
             - j for the column position 
+        
+        'position' is an array containing all the empty cell of the grid 
+          with the number of possibilities.
+          emptyCells -> {
+              position: [i: number, j: number],
+              possibilities: number
+          }
+          The empty cells are sorted with the cell having the lowest possibilities to the 
+            greatest number of possibilities
     */
     constructor(grid) {
         this.grid = grid;
-        this.position = [];
+        this.emptyCells = [];
+        this.calculateEmptyCellsPossibilities();
     }
 
     getGrid = _ => this.grid;
+    
+    //Position
+    getEmptyCells = _ => this.emptyCells;
+
+    calculateEmptyCellsPossibilities = () => {
+        const grid = this.getGrid();
+        for(let i = 0; i < SUDOKU_SIZE; i++) {
+            for(let j = 0; j < SUDOKU_SIZE; j++) {
+                if(this.grid[i][j] === 0){
+                    let possibilities = 0;
+                    for(let number of SUDOKU_VALUES) {
+                        if(
+                            !this.isValueInLine(i, number) && 
+                            !this.isValueInColumn(j, number) && 
+                            !this.isValueInBlock(i, j, number)
+                        ) {
+                            possibilities++;
+                        }
+                    }
+                    this.emptyCells.push({
+                        'position': [i, j],
+                        'possibilities': possibilities
+                    });
+                }
+            }
+        }
+        this.sortEmptyCells();
+    }
+
+    sortEmptyCells = () => {
+        this.getEmptyCells().sort((cell1, cell2) => cell1.possibilities - cell2.possibilities);
+    }
 
     //Lines
     getLine = i => this.getGrid()[i];

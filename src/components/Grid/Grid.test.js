@@ -35,7 +35,6 @@ test('should get the grid', () => {
 
 test('should render Grid', () => {
     const gridRenderer = TestRenderer.create(<Grid/>);
-    console.log(gridRenderer);
     expect(gridRenderer).toBeTruthy();
 })
 

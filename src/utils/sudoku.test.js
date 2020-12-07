@@ -6,6 +6,23 @@ import {
     isInArray
 } from './sudoku';
 
+const VALID_SUDOKU_STUB_1 = [
+    [9,0,0,1,0,0,0,0,5],
+    [0,0,5,0,9,0,2,0,1],
+    [8,0,0,0,4,0,0,0,7],
+    [0,0,0,0,8,0,0,0,0],
+    [0,0,0,7,0,0,0,0,0],
+    [0,0,0,0,2,6,0,0,9],
+    [2,0,0,3,0,0,0,0,6],
+    [0,0,0,2,0,0,9,0,0],
+    [0,0,1,9,0,4,5,7,0]
+];
+
+const FIRST_EMPTY_CELL_EXPECTED_1 = {
+    'position': [8, 4],
+    'possibilities': 1 
+} 
+
 test('should create an empty grid', () => {
     const grid = createEmptyGrid();
     expect(grid.length).toEqual(SUDOKU_SIZE);
@@ -70,4 +87,21 @@ test('should check correctly', () => {
     //correct block
     expect(solver.isValueInBlock(i,j,value)).toBeTruthy();
 
+})
+
+test('should calculate the possibilities', () => {
+    const grid = VALID_SUDOKU_STUB_1;
+    const firstEmptyCellExpected = FIRST_EMPTY_CELL_EXPECTED_1;
+    const solver = new SudokuSolver(grid);
+
+    const emptyCells = solver.getEmptyCells();
+    expect(emptyCells).not.toBeUndefined();
+
+    //check the sorting
+    for(let i = 0; i < emptyCells.length - 1; i++) {
+        expect(emptyCells[i].possibilities).toBeLessThanOrEqual(emptyCells[i+1].possibilities);
+    }
+
+    //check the first value
+    expect(emptyCells[0]).toEqual(firstEmptyCellExpected);
 })
