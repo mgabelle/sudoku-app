@@ -18,6 +18,18 @@ const VALID_SUDOKU_STUB_1 = [
     [0,0,1,9,0,4,5,7,0]
 ];
 
+const VALID_SOLUTION_FOR_STUB_1 = [
+    [9,3,4,1,7,2,6,8,5],
+    [7,6,5,8,9,3,2,4,1],
+    [8,1,2,6,4,5,3,9,7],
+    [4,2,9,5,8,1,7,6,3],
+    [6,5,8,7,3,9,1,2,5],
+    [1,7,3,4,2,6,8,5,9],
+    [2,9,7,3,5,8,4,1,6],
+    [5,4,6,2,1,7,9,3,8],
+    [3,8,1,9,6,4,5,7,2]
+];
+
 const FIRST_EMPTY_CELL_EXPECTED_1 = {
     'position': [8, 4],
     'possibilities': 1 
@@ -104,4 +116,19 @@ test('should calculate the possibilities', () => {
 
     //check the first value
     expect(emptyCells[0]).toEqual(firstEmptyCellExpected);
+})
+
+test('should solve the grid and find the right grid', () => {
+	const grid = VALID_SUDOKU_STUB_1;
+	const expectedSolvedGrid = VALID_SOLUTION_FOR_STUB_1;
+	const solver = new SudokuSolver(grid);
+
+	expect(solver.getGrid()).toEqual(grid);
+	expect(solver.getInitialGrid()).toEqual(grid);
+
+	const isSolved = solver.solve(0);
+	expect(isSolved).toBeTruthy();
+
+	expect(solver.getInitialGrid()).toEqual(grid);
+	expect(solver.getGrid()).toEqual(expectedSolvedGrid);
 })

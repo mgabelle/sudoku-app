@@ -82,13 +82,37 @@ export class SudokuSolver {
     */
     constructor(grid) {
         this.grid = grid;
+        this.initialGrid = [...grid];
         this.emptyCells = [];
         this.calculateEmptyCellsPossibilities();
     }
 
     getGrid = _ => this.grid;
+    getInitialGrid = _ => this.initialGrid;
+
+    //Solver 
+    solve = (index) => {
+        const cell = this.getEmptyCells()[index];
+
+        //if there is no more cell to loop through
+        if(cell === undefined) return true;
+
+        const [i,j] = cell.position;
+        
+        for(let k of SUDOKU_VALUES) { //from 0 to 8
+            //check if k is not in the grid
+            if(!this.isValueInLine(i,k) && !this.isValueInColumn(j,k) && !this.isValueInBlock(i,j,k)) {
+                this.getGrid()[i][j] = k;
+                if(this.solve(index + 1)) return true;
+            } else {
+                this.grid[i][j] = 0;
+            }
+        }
+
+        return false;
+    }
     
-    //Position
+    //Empty cells to fill
     getEmptyCells = _ => this.emptyCells;
 
     calculateEmptyCellsPossibilities = () => {
