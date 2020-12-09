@@ -1,46 +1,13 @@
-/**
- * Sudoku module.
- * This module has for goal to generate sudoku grid
- */
+//SUDKU SOLVER - BACKTRACKING ALGORITHM
 
-export { 
-    SudokuSolver,
-    generateRandomGrid,
-    createEmptyGrid,
+import { SUDOKU_SIZE , SUDOKU_VALUES } from './sudoku-variables';
+import {
     isFull,
     isInArray,
-    arrayHasDuplicate,
-    FIXED,
-    DYNAMIC,
-    SUDOKU_SIZE
-};
+    arrayHasDuplicate
+} from './sudoku-utils';
 
-const SUDOKU_SIZE = 9;
-const SUDOKU_VALUES = [1, 2, 3, 4, 5, 6, 7 ,8 ,9];
-
-const FIXED = 'fixed';
-const DYNAMIC = 'dynamic';
-
-/**
- * Cell object :
- *  -value : number
- *  -type : 'fixed' or 'dynamic'
- */
-class CellObject {
-    constructor(value) {
-        this.value = value;
-        this.type = value === 0 ? DYNAMIC : FIXED;
-    }
-
-    updateValue = newValue => this.value = newValue;
-
-    getValue = _ => this.value;
-    
-    getType = _ => this.type;
-}
-
-//SUDKU SOLVER - BACKTRACKING ALGORITHM
-class SudokuSolver {
+export class SudokuSolver {
     /*
         'grid' is a 9x9 matrix built with Array.
         In this class we use : 
@@ -175,41 +142,3 @@ class SudokuSolver {
 
     isValueInBlock = (i, j, value) => isInArray(this.getBlock(i,j), value);
 }
-
-//Checker
-const isInArray = (array, value) => array.includes(value); 
-
-//Return 9x9 matrix of zeros
-const createEmptyGrid = () => {
-    const grid = [];
-    for(let i = 0; i < SUDOKU_SIZE; i++)
-        grid.push(new Array(SUDOKU_SIZE).fill(0));
-    return grid;
-}
-
-//Generate a 9x9 grid of random number
-const generateRandomGrid = () => {
-    return createEmptyGrid().map(
-        row => row.map(number => {
-            const randomNumber = Math.floor(Math.random()*10);
-            return new CellObject(randomNumber);
-        })
-    )
-};
-
-//Return true if a grid is full
-const isFull = grid => {
-    for(let row of grid) {
-        for(let n of row) {
-            if(n === 0) return false;
-        }
-    }
-    return true;
-}
-
-//Return true if a sudoku Array has duplicate
-const arrayHasDuplicate = (array) => {
-    const arrayToCheck = Object.assign([], array).sort();
-    if(arrayToCheck.toString() === SUDOKU_VALUES.toString()) return false;
-    return true;
-} 

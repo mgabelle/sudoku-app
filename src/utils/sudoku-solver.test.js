@@ -1,11 +1,5 @@
-import { 
-    createEmptyGrid,
-    isFull,
-    SUDOKU_SIZE,
-    SudokuSolver,
-    isInArray,
-    arrayHasDuplicate
-} from './sudoku';
+import { SudokuSolver } from './sudoku-solver';
+import { createEmptyGrid } from './sudoku-utils';
 
 const VALID_SUDOKU_STUB_1 = [
     [0,3,0,0,0,0,0,6,0],
@@ -32,47 +26,11 @@ const VALID_SOLUTION_FOR_STUB_1 = [
     [3,2,9,8,4,1,5,7,6],
 ];
 
-const FIRST_EMPTY_CELL_EXPECTED_1 = {
-    'position': [8, 4],
-    'possibilities': 1 
-} 
-
-test('should create an empty grid', () => {
-    const grid = createEmptyGrid();
-    expect(grid.length).toEqual(SUDOKU_SIZE);
-
-    grid.map(row => {
-        expect(row.length).toEqual(9);
-        row.map(n => expect(n).toEqual(0));
-    });
-})
-
-test('should check if a grid is full or not', () => {
-    let grid = createEmptyGrid();
-    expect(isFull(grid)).toBeFalsy();
-    grid = new Array(SUDOKU_SIZE).fill(new Array(SUDOKU_SIZE).fill(3));
-    expect(isFull(grid)).toBeTruthy();
-})
-
-test('should check if an array has duplicate', () => {
-    const expectNotToHaveDuplicate = [2, 3, 4, 6, 9, 8, 5, 7, 1];
-    const expectToHaveDuplicate = [2, 3, 3, 6, 9, 8, 5, 7, 1];
-
-    expect(arrayHasDuplicate(expectNotToHaveDuplicate)).toBeFalsy();
-    expect(arrayHasDuplicate(expectToHaveDuplicate)).toBeTruthy();
-})
-
-//SUDOKU SOLVER 
-
-test('should check if value is in array', ()=> {
-    const value = 1;
-    const array = new Array(9).fill(0);
-    
-    expect(isInArray(array, value)).toBeFalsy();
-    
-    array[0] = value;
-    expect(isInArray(array, value)).toBeTruthy();
-})
+/* 
+    ######################### 
+    ####  SUDOKU SOLVER  ####
+    #########################
+ */
 
 test('should check correctly lines, blocks, and columns', () => {
     const grid = createEmptyGrid();
@@ -113,7 +71,6 @@ test('should check correctly lines, blocks, and columns', () => {
 
 test('should calculate the possibilities', () => {
     const grid = VALID_SUDOKU_STUB_1;
-    const firstEmptyCellExpected = FIRST_EMPTY_CELL_EXPECTED_1;
     const solver = new SudokuSolver(grid);
 
     const emptyCells = solver.getEmptyCells();
@@ -123,9 +80,6 @@ test('should calculate the possibilities', () => {
     for(let i = 0; i < emptyCells.length - 1; i++) {
         expect(emptyCells[i].possibilities.length).toBeLessThanOrEqual(emptyCells[i+1].possibilities.length);
     }
-
-    //check the first value
-    //expect(emptyCells[0]).toEqual(firstEmptyCellExpected);
 })
 
 test('should correctly check if the grid is solved', () => {
