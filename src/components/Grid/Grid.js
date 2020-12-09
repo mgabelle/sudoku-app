@@ -1,6 +1,6 @@
 import { Component } from "react";
 import Cell from '../Cell/Cell';
-import { generateRandomGrid, FIXED, DYNAMIC } from '../../utils/sudoku'
+import { generateRandomGrid, FIXED, DYNAMIC } from '../../utils/sudoku-utils';
 import './Grid.css';
 
 export default class Grid extends Component {

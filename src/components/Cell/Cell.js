@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { FIXED } from '../../utils/sudoku';
+import { FIXED } from '../../utils/sudoku-utils';
 import './Cell.css';
 
 export default class Cell extends Component {
