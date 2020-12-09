@@ -111,7 +111,6 @@ class SudokuSolver {
             if(!this.isValueInLine(i,k) && !this.isValueInColumn(j,k) && !this.isValueInBlock(i,j,k)) {
                 this.getGrid()[i][j] = k;
                 if(this.solve(index + 1)) return true;
-            } else {
                 this.grid[i][j] = 0;
             }
         }
