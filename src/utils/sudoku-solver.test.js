@@ -69,7 +69,7 @@ test('should check correctly lines, blocks, and columns', () => {
 
 })
 
-test('should calculate the possibilities', () => {
+test('should calculate possibilities of each empty cell and sort them', () => {
     const grid = VALID_SUDOKU_STUB_1;
     const solver = new SudokuSolver(grid);
 
@@ -106,7 +106,7 @@ test('should solve the grid and find the right grid', () => {
 	expect(solver.getGrid()).toEqual(grid);
 	expect(solver.getInitialGrid()).toEqual(solver.getGrid());
 
-	const isSolved = solver.solve(0);
+	const isSolved = solver.solve();
 	expect(isSolved).toBeTruthy();
 
 	expect(solver.getInitialGrid()).not.toEqual(solver.getGrid());

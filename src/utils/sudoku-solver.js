@@ -27,7 +27,6 @@ export class SudokuSolver {
         this.grid = grid;
         this.initialGrid = JSON.parse(JSON.stringify(grid));
         this.emptyCells = [];
-        this.calculateEmptyCellsPossibilities();
     }
 
     getGrid = _ => this.grid;
@@ -65,6 +64,13 @@ export class SudokuSolver {
 
     //Solver 
     solve = (index) => {
+
+        //Launch solver
+        if(index === undefined) {
+            this.calculateEmptyCellsPossibilities();
+            return this.solve(0);
+        }
+
         const cell = this.getEmptyCells()[index];
 
         //if there is no more cell to loop through
