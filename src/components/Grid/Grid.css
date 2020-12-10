@@ -1,22 +1,22 @@
-table {
+.Grid table {
     border: 3px solid black;
     border-collapse: collapse;
-    width: 50vh;
-    height: 50vh;
+    width: 90vh;
+    height: 90vh;
     min-width: 300px;
     min-height: 300px;
   }
 
-  th, td {
+.Grid th, td {
     border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
   }
 
-  td:nth-child(3n) {
+.Grid td:nth-child(3n) {
     border-right:solid ;
   }
 
-  tr:nth-child(3n) td {
+.Grid tr:nth-child(3n) td {
     border-bottom:solid ;
   } 

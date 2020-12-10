@@ -36,11 +36,13 @@ export default class Grid extends Component {
     render() {
         let table = this.getGrid().map((row, j) => this.renderRow(row, j));
         return (
-            <table>
-                <tbody>
-                    {table}
-                </tbody>
-            </table>
+            <div className="Grid">
+                <table>
+                    <tbody>
+                        {table}
+                    </tbody>
+                </table>
+            </div>
         );
     }
 }
