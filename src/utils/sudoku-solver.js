@@ -32,6 +32,10 @@ export class SudokuSolver {
     getGrid = _ => this.grid;
     getInitialGrid = _ => this.initialGrid;
 
+    updateGrid = (i,j,value) => {
+        this.grid[i][j] = value;
+    }
+
     //Checker
     isGridSolvedAndFull = () => {
         if(!isFull(this.getGrid())) return false;

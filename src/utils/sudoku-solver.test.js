@@ -32,6 +32,15 @@ const VALID_SOLUTION_FOR_STUB_1 = [
     #########################
  */
 
+ test('should update a cell value', () => {
+    const solver = new SudokuSolver(createEmptyGrid());
+    const [i,j,randomValue] = [0,2,9];
+    expect(solver.getGrid()[i][j]).toEqual(0);
+    
+    solver.updateGrid(i,j,randomValue);
+    expect(solver.getGrid()[i][j]).toEqual(randomValue);
+ })
+
 test('should check correctly lines, blocks, and columns', () => {
     const grid = createEmptyGrid();
     const [i, j] = [5,5];
