@@ -1,12 +1,14 @@
 import { Component } from "react";
 import Cell from '../Cell/Cell';
-import { generateRandomGrid, FIXED, DYNAMIC } from '../../utils/sudoku-utils';
+import { CellObject, FIXED, DYNAMIC } from '../../utils/sudoku-utils';
 import './Grid.css';
+import { SudokuGenerator } from "../../utils/sudoku-generator";
 
 export default class Grid extends Component {
     constructor(props) {
         super(props);
-        this.grid = generateRandomGrid();
+        this.generator = new SudokuGenerator();
+        this.grid = this.generator.generate(25).map(row => row.map(number => new CellObject(number)));
     }
     
     getGrid = _ => this.grid;
