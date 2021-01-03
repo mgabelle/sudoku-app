@@ -12,7 +12,7 @@ test('should create an empty grid', () => {
     expect(grid.length).toEqual(SUDOKU_SIZE);
 
     grid.map(row => {
-        expect(row.length).toEqual(9);
+        expect(row.length).toEqual(SUDOKU_SIZE);
         row.map(n => expect(n).toEqual(0));
     });
 })

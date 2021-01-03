@@ -1,9 +1,9 @@
 import { SudokuSolver } from './sudoku-solver';
-import { createEmptyGrid } from './sudoku-utils';
+import { createEmptyGrid, shuffle } from './sudoku-utils';
 import { SUDOKU_COORDINATES, SUDOKU_SIZE, SUDOKU_VALUES } from './sudoku-variables';
 
-const MIN_CELL_NUMBER = 30;
-const MAX_CELL_NUMBER = 60;
+// const MIN_CELL_NUMBER = 30;
+// const MAX_CELL_NUMBER = 60;
 const MAX_ITERATION = 30;
 
 export class SudokuGenerator {
@@ -60,12 +60,12 @@ export class SudokuGenerator {
 
     getGridCoordinatesShuffled = () => {
         let coordinates = JSON.parse(JSON.stringify(SUDOKU_COORDINATES));
-        return coordinates.sort( _ => Math.random() - Math.random());
+        return shuffle(coordinates);
     }
 
     getRandomSudokuValues = () => {
         let values = JSON.parse(JSON.stringify(SUDOKU_VALUES));
-        return values.sort( _ => Math.random() - Math.random());
+        return shuffle(values);
     }
 
     removeValueInGrid = (grid) => {
