@@ -7,11 +7,14 @@ import { SudokuGenerator } from "../../utils/sudoku-generator";
 export default class Grid extends Component {
     constructor(props) {
         super(props);
-        this.generator = new SudokuGenerator();
-        this.grid = this.generator.generate(25).map(row => row.map(number => new CellObject(number)));
+        this.grid = this.generateNewGrid();   
     }
     
     getGrid = _ => this.grid;
+
+    updateGrid = grid => {
+        this.grid = grid;
+    }
     
     getCell = (i,j) => this.getGrid()[i][j];
     
@@ -19,6 +22,10 @@ export default class Grid extends Component {
         this.getGrid()[i][j].updateValue(value);
     }
 
+    generateNewGrid = _ => {
+        const generator = new SudokuGenerator();
+        return generator.generate(25).map(row => row.map(number => new CellObject(number)))
+    }
     
     renderRow = (row, i) => {
         const cells = row.map((cellObject, j) => {
@@ -44,6 +51,7 @@ export default class Grid extends Component {
                         {table}
                     </tbody>
                 </table>
+                <button onClick={this.generateNewGrid}>New Sudoku grid</button>
             </div>
         );
     }

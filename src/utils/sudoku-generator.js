@@ -1,6 +1,6 @@
 import { SudokuSolver } from './sudoku-solver';
 import { createEmptyGrid, shuffle } from './sudoku-utils';
-import { SUDOKU_COORDINATES, SUDOKU_SIZE, SUDOKU_VALUES } from './sudoku-variables';
+import { SUDOKU_COORDINATES, SUDOKU_VALUES } from './sudoku-variables';
 
 // const MIN_CELL_NUMBER = 30;
 // const MAX_CELL_NUMBER = 60;
@@ -22,10 +22,6 @@ export class SudokuGenerator {
             isSolved = solver.solve();
             counter++;
         } while(!isSolved && counter < MAX_ITERATION);
-
-        if(isSolved) {
-            console.table(solver.getGrid());
-        }
         
         return counter === MAX_ITERATION ? false : solver.getInitialGrid();
     }
