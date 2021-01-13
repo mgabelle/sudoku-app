@@ -2,9 +2,9 @@ import { SudokuSolver } from './sudoku-solver';
 import { createEmptyGrid, shuffle } from './sudoku-utils';
 import { SUDOKU_COORDINATES, SUDOKU_VALUES } from './sudoku-variables';
 
-// const MIN_CELL_NUMBER = 30;
-// const MAX_CELL_NUMBER = 60;
-const MAX_ITERATION = 30;
+const MIN_CELL_NUMBER = 20;
+const MAX_CELL_NUMBER = 60;
+const MAX_ITERATION = 5;
 
 export class SudokuGenerator {
     generate = (numberOfCell) => { 
@@ -12,14 +12,22 @@ export class SudokuGenerator {
         let solver;
 
         let isSolved = false;
+        let numberOfCellOfNewGrid = 0;
         let counter = 0;
 
         do {
             grid = this.generateCorrectGrid(numberOfCell);
             if(!grid) continue;  //if the grid is incorrect regenerate
-
-            solver = new SudokuSolver(grid);
-            isSolved = solver.solve();
+            
+            numberOfCellOfNewGrid = numberOfCell;
+            while(numberOfCell > MIN_CELL_NUMBER && !isSolved) {
+                solver = new SudokuSolver(grid);
+                isSolved = solver.solve();
+                if(!isSolved) {
+                    this.removeValueInGrid(grid);
+                    numberOfCell--;
+                }
+            }
             counter++;
         } while(!isSolved && counter < MAX_ITERATION);
         
@@ -28,9 +36,13 @@ export class SudokuGenerator {
 
     generateCorrectGrid = (numberOfCell) => {
         //Error : numberOfCell should not be null
-        if(numberOfCell < 1) {
-            throw(new Error("numberOfCell should not be negative or less than 0."))
+        if(numberOfCell < MIN_CELL_NUMBER) {
+            throw(new Error(`numberOfCell should not be less than ${MIN_CELL_NUMBER}`))
+        } else if (numberOfCell > MAX_CELL_NUMBER) {
+            throw(new Error(`numberOfCell should not be less than ${MIN_CELL_NUMBER}`))
+            throw(new Error(""))
         }
+
         const solver = new SudokuSolver(createEmptyGrid());
         const coordinates = this.getGridCoordinatesShuffled();
         let numberOfCellsToFill = numberOfCell;
